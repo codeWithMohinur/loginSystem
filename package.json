@@ -1,0 +1,12 @@
+{
+  "name": "login_system",
+  "version": "1.0.0",
+  "description": "create a login system",
+  "license": "ISC",
+  "author": "mohinur rahaman",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
