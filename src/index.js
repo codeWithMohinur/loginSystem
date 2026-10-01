@@ -9,7 +9,7 @@ connectDb()
 .then(() => {
     app.listen(process.env.PORT || 5000, () => {
         console.log(`server running on this port ${process.env.PORT}`)
-    })
+    });
 })
 
 .catch((error) => {
