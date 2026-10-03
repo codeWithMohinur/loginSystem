@@ -1,1 +1,2 @@
-export const { DB_NAME } = "mohinur";
+const  DB_NAME  = "mohinur";
+export {DB_NAME}
