@@ -15,13 +15,13 @@ const generateAccessAndRefreshToken = async(userId) => {
         return {refreshToken, accessToken}
         
     } catch (error) {
-    console.log("TOKEN ERROR:", error);
-    throw new ApiError(
-        500,
-        "Something went wrong while generate access and refresh token"
-    );
-}
-}
+        console.log("TOKEN ERROR:", error);
+        throw new ApiError(
+            500,
+            "Something went wrong while generate access and refresh token"
+        );
+    }
+};
 const registerUser = AsyncHandler(async(req, res, next) => {
     // get user data from frontend
     // validate that data
@@ -32,7 +32,7 @@ const registerUser = AsyncHandler(async(req, res, next) => {
     // return res
 
     const {fullName, userName, email, password} = req.body
-    console.log(req.body)
+    
     
     if(
         [fullName, userName, email, password].some((field) => field.trim() === "")
@@ -68,7 +68,7 @@ const registerUser = AsyncHandler(async(req, res, next) => {
     )
 
 
-})
+});
 
 const loginUser = AsyncHandler(async (req, res) => {
 
@@ -135,4 +135,34 @@ const loginUser = AsyncHandler(async (req, res) => {
 
 });
 
-export { registerUser, loginUser };
+const logoutUser = AsyncHandler(async(req, res) => {
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                refreshToken: undefined
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    return res
+    .status(200)
+    .clearCookie("accessToken" , options)
+    .clearCookie("refreshToken" , options)
+    .json(
+        new ApiResponse(200, {}, "User is successfully logout")
+    )
+});
+
+export { 
+    registerUser, 
+    loginUser,
+    logoutUser 
+};
