@@ -1,2 +1,2 @@
-const  DB_NAME  = "mohinur";
+const  DB_NAME  = "loginData";
 export {DB_NAME}
